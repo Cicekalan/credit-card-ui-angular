@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { CreditCardComponent } from './credit-card/credit-card.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  imports: [CreditCardComponent],
+  template: '<app-credit-card></app-credit-card>',
+  
 })
 export class AppComponent {
-  title = 'CreditCard';
+  
 }

@@ -1,0 +1,161 @@
+<div class="demo-banner">
+    This is a demo application. No real data is used.
+  </div>
+
+<div class="container d-flex flex-column align-items-center vh-100">
+    <!-- Credit Card -->
+    <div class="flippable-card-container">
+      <div class="flippable-card" [class.flipped]="isFlipped">
+        <!-- Card Front -->
+        <div class="credit-card front">
+          <div class="chip-container">
+            <img src="chip-icon.png" alt="Chip" class="chip-image" />
+          </div>
+          <div class="card-logo">{{ cardBank }}</div>
+          <div class="card-number">{{ cardNumber }}</div>
+          <div class="d-flex justify-content-between card-details">
+            <div>
+              <div>Card Holder</div>
+              <div>{{ cardHolder  | uppercase }}</div>
+            </div>
+            <div>
+              <div>Expires</div>
+              <div>{{ expiryDate }}</div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Card Back Side -->
+        <div class="credit-card back">
+          <div class="stripe"></div>
+          <div class="cvv-container">
+            <div class="cvv-label">CVV</div>
+            <div class="cvv-value">{{ cvv }}</div>
+          </div>
+        </div>
+        
+    </div>
+  
+    <!-- Form -->
+    <form class="form-container" #form="ngForm"  >
+      <!-- Card Number-->
+      <div class="mb-3">
+        <label for="cardNumber" class="form-label">Card Number</label>
+        <input
+          type="text"
+          class="form-control"
+          id="cardNumber"
+          [(ngModel)]="cardNumber"
+          (input)="updateCardNumber($event)"
+          (focus)="moveCursorToStart($event)"
+          required
+          [ngClass]="{
+            'is-valid': submitted && cardNumberValid(),
+            'is-invalid': submitted && !cardNumberValid()
+          }"
+          name="cardNumber"
+          maxlength="19"
+          placeholder="1234 5678 9012 3456"
+           />
+      </div>
+      <!-- Card Holder-->
+      <div class="mb-3">
+        <label for="cardHolder" class="form-label">Card Holder</label>
+        <input
+          type="text"
+          class="form-control"
+          id="cardHolder"
+          [(ngModel)]="cardHolder"
+          (input)="allowOnlyAlphabets($event)"
+          (input)="convertToUppercase()"
+          name="cardHolder"
+          maxlength="50"
+          placeholder="Card Holder Name"
+           />
+      </div>
+  
+      <!-- Expiry Date & CVV -->
+      <div class="row g-2">
+        <!-- Expiry Date -->
+        <div class="col-md-6 position-relative">
+          <label for="expiryDateInput" class="form-label">Expiry Date</label>
+          <input
+            type="text"
+            id="expiryDateInput"
+            class="form-control"
+            [(ngModel)]="expiryDate"
+            name="expiryDate"
+            placeholder="MM/YY"
+            (input)="formatExpiryDate($event)"
+            (focus)="showDatePicker = true"
+            required />
+          <!-- Datepicker Pop-up -->
+          <div
+            class="popup position-absolute bg-white border p-3 shadow"
+            *ngIf="showDatePicker"
+            [style.top]="'100%'"
+            [style.left]="'0'">
+            <!-- Year Popup -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <button class="btn btn-sm btn-secondary" (click)="changeYear(-1)">
+                &lt;
+              </button>
+              <span class="fw-bold">{{ currentYear }}</span>
+              <button class="btn btn-sm btn-secondary" (click)="changeYear(1)">
+                &gt;
+              </button>
+            </div>
+            <!-- Month Popup -->
+            <div class="row">
+              <div
+                class="col-3 text-center"
+                *ngFor="let month of months"
+                (click)="!isMonthDisabled(month.value) && selectMonth(month.value)">
+                <button
+                  class="btn btn-outline-primary w-100"
+                  [class.active]="selectedMonth === month.value"
+                  [disabled]="isMonthDisabled(month.value)">
+                  {{ month.name }}
+                </button>
+              </div>
+            </div>
+            <!-- Close Popup -->
+            <div class="text-end mt-3">
+              <button class="btn btn-sm btn-danger" (click)="closeDatePicker()">
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+  
+        <!-- CVV -->
+        <div class="col-md-6 position-relative">
+          <label for="cvv" class="form-label">
+            CVV
+            <span
+              class="ms-2 text-info position-relative"
+              tabindex="0"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="American Express: 4 digits, others: 3 digits">
+              &#9432; <!-- Unicode for info icon -->
+            </span>
+          </label>
+          <input
+            type="text"
+            [(ngModel)]="cvv"
+            (input)="allowOnlyNumbers($event)"
+            name="cvv"
+            (focus)="onCvvFocus()"
+            (blur)="onCvvBlur()"
+            maxlength="4"
+            class="form-control"
+            id="cvv"
+            placeholder="123" />
+        </div>
+  
+      </div>
+      <button type="submit" [disabled]="!submitted" class="btn btn-primary w-100 mt-4">Submit</button>
+    </form>
+  </div>
+  
