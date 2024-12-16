@@ -21,6 +21,6 @@ This is a demo application built with Angular to demonstrate a dynamic credit ca
    ng serve
   ````
 ##Technologies
--Angular
--TypeScript
--SCSS
+- Angular
+- TypeScript
+- SCSS
