@@ -11,7 +11,7 @@ This is a demo application built with Angular to demonstrate a dynamic credit ca
 ## Setup
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/Cicekalan/credit-card-ui-angular.git]
+   git clone https://github.com/Cicekalan/credit-card-ui-angular.git
 2.Install dependencies:
    ```bash
    npm install
