@@ -20,7 +20,7 @@ This is a demo application built with Angular to demonstrate a dynamic credit ca
    ```bash
    ng serve
   ````
-##Technologies
+## Technologies
 - Angular
 - TypeScript
 - SCSS
