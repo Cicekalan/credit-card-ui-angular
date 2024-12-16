@@ -8,6 +8,10 @@ This is a demo application built with Angular to demonstrate a dynamic credit ca
 - Expiry date validation
 - Interactive card flip animation for CVV input
 
+## Screenshots
+### Credit Card Form
+![Credit Card Form](screenshots/credit-cart-demo.png)
+
 ## Setup
 1. Clone the repository:
    ```bash
